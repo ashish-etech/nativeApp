@@ -1,9 +1,25 @@
-Button, TextField {
-  margin-bottom: 10;
-  height: 60;
+StackLayout{
+    margin-top: 1;
+    margin-bottom: 1;
+}
+Button{
+ margin-bottom: 10;
+ height: 60;
+ color: white;
+}
+TextField{
+    margin-top: 10;
+    margin-bottom: 10;
+    margin-left: 4;
+    margin-right: 4;
+   height: 50;
+    background-color: white;
+    opacity: 0.4;
+    color: black;
 }
 Page{
-  background-image: url("res://bg_inner.jpg");
-      background-repeat: no-repeat;
-
+ background-image: url("res://bg_inner.jpg");
+}
+Image{
+    margin-top: 0;
 }

@@ -1,0 +1,7 @@
+<StackLayout >
+    <Image src="res://logo_login" stretch="none" horizontalAlignment="center"></Image>
+    <TextField hint="Email Address" [(ngModel)]="user.email" keyboardType="email" style.placeholderColor="lightgreen" autocorrect="false" autocapitalizationType="none"></TextField>
+    <TextField hint="Password" secure="true" [(ngModel)]="user.password" style.placeholderColor="lightgreen"></TextField>
+    <Button [text]="isLoggin ? 'Sign in' : 'Sign Up'" (tap)="submit()" ></Button>
+    <Button [text]="isLoggin ? 'Sign Up' : 'back to login'"  (tap)="toggle()" ></Button>
+</StackLayout>

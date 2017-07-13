@@ -1,29 +1,35 @@
 import { Component } from "@angular/core";
+import { User } from "./shared/user/user";
 import { Page } from "ui/page";
+import { UserService } from "./shared/user/user.service";
 @Component({
   selector: "my-app",
-  template: `
-
-    <StackLayout>
-
-    <Image src="res://logo_login" stretch="none" horizontalAlignment="center"></Image>
-
-      <TextField hint="Email Address" keyboardType="email"
-        autocorrect="false" autocapitalizationType="none"></TextField>
-      <TextField hint="Password" secure="true"></TextField>
-
-      <Button text="Sign in" class="submit-button" (tap)="submit()"></Button>
-      <Button text="Sign up for Groceries"></Button>
-
-    </StackLayout>
-  `,
+  providers: [UserService],
+  templateUrl: "pages/login/login.html",
   styleUrls: ["pages/login/login-common.css","pages/login/login.css"]
 })
 export class AppComponent {
-  submit() {
-    console.log("hello");
-  }
-  constructor(private page:Page) {
-    page.backgroundImage = "res://bg_inner";
-  }   
+    user:User;
+    isLoggin=true;
+    submit() {
+        console.log("email:"+ this.user.email+"\n Pass: "+ this.user.password);
+        if(this.isLoggin){
+            this.login();
+        }
+        else{
+            this.signUp()
+        }
+    };
+    login(){
+    };
+    signUp(){
+        this.userService.register(this.user);
+    }
+    toggle() {
+        this.isLoggin=!this.isLoggin;
+    }
+    constructor(private page:Page,private userService:UserService) {
+        page.backgroundImage = "res://bg_inner";
+        this.user=new User();
+    }
 }
