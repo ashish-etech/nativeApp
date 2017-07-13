@@ -1,0 +1,9 @@
+Button, TextField {
+  margin-bottom: 10;
+  height: 60;
+}
+Page{
+  background-image: url("res://bg_inner.jpg");
+      background-repeat: no-repeat;
+
+}
