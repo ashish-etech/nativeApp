@@ -14,8 +14,11 @@ export class UserService{
     register(user:User){
 	console.log("registartion success");
 
-		this.http.get('http://asrui.000webhostapp.com/angularForm/fetch.php')
-			 .map(res=> console.log(res))
+		this.http.get('http://asrui.000webhostapp.com/get.php')
+		.subscribe((response) => {
+			console.dir(response.json()); 
+		})
+	
     }
 	login(user:User){
         alert("login success: " + user.email);
