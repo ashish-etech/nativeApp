@@ -17,21 +17,18 @@ export class UserService {
 
     return this.http.post(
       "https://asrui.000webhostapp.com/insert.php",
-      JSON.stringify({
-        email: user.email,
-        password: user.password
-      }),
+      user,
       { headers: headers }
     )
     .catch(this.handleErrors);
-  }
+  };
 
   handleErrors(error: Response) {
     console.log(JSON.stringify(error.json()));
     return Observable.throw(error);
   }
 
-  log(){
+  getData(){
   return this.http.get("https://asrui.000webhostapp.com/get.php")
 	 	 	.catch(this.handleErrors);
   }

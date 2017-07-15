@@ -15,47 +15,55 @@ import { Observable } from "rxjs/Rx";
 export class AppComponent {
     user:User;
     isLoggin=true;
+
+    constructor(private page:Page,private userService:UserService) {
+        page.backgroundImage = "res://bg_inner";
+        this.user=new User();
+    };
+
     submit() {
 		if(!this.user.email || !this.user.password ){
-			alert("please fill all field")
+			alert("All fields required!")
 		}else{
 	        if(this.isLoggin){
-	            this.login();
+	            this.fetch();
 	        }else{
 	            this.signUp()
 	        }
 		}
     };
-    login(){
+    fetch(){
 		console.log('login function gets call')
 
-		this.userService.log()
+		this.userService.getData()
 		.subscribe(
-			(res) => {	alert("you got data.", res);
-				this.toggle();
-			},
-			(err) => alert("Unfortunately we were unable to get data.")
+			(res) => console.dir(res.json()),
+			(err) => console.log("Unfortunately we were unable to get data.")
 		)
 
     };
     signUp(){
 		this.userService.register(this.user)
 		.subscribe(
-			(res) => {	alert("Your account was successfully created.", res);
+			(res) => {
+                console.log(res.text());
+                alert(res.text());
+                this.toggle();
+            },
+			(err) => {
+                console.log("Unfortunately we were unable to create your account.");
+                alert(err.text());
+            }
+        )
+    };
 
-				this.toggle();
-			},
-			(err) => alert("Unfortunately we were unable to create your account.",err)
-		)
-    }
     toggle() {
         this.isLoggin=!this.isLoggin;
     };
-    constructor(private page:Page,private userService:UserService) {
-        page.backgroundImage = "res://bg_inner";
-        this.user=new User();
-    };
+
+    
+
 	ngOnInit(){
-		this.login();
-		}
+		
+	}
 }

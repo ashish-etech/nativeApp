@@ -3,23 +3,24 @@ StackLayout{
     margin-bottom: 1;
 }
 Button{
- margin-bottom: 10;
- height: 60;
- color: white;
+    margin-bottom: 10;
+    height: 60;
+    color: white;
 }
 TextField{
     margin-top: 10;
     margin-bottom: 10;
     margin-left: 4;
     margin-right: 4;
-   height: 50;
-    background-color: white;
-    opacity: 0.4;
-    color: black;
+    height: 50;
+    color: white;
 }
 Page{
- background-image: url("res://bg_inner.jpg");
+    background-image: url("res://bg_inner.jpg");
 }
 Image{
     margin-top: 0;
+}
+.submit{
+    background-color: green;
 }
