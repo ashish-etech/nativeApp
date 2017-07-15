@@ -1,28 +1,38 @@
 import { Injectable } from "@angular/core";
-import { User } from "./user";
-import { Http, Response, Headers } from "@angular/http";
+import { Http, Headers, Response } from "@angular/http";
 import { Observable } from "rxjs/Rx";
-import "rxjs/add/operator/do" ;
-import "rxjs/add/operator/map" ;
+import "rxjs/add/operator/do";
+import "rxjs/add/operator/map";
+
+import { User } from "./user";
+import { Config } from "../config";
 
 @Injectable()
+export class UserService {
+  constructor(private http: Http) {}
 
-export class UserService{
+  register(user: User) {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
 
-	constructor(private http:Http){}
+    return this.http.post(
+      "https://asrui.000webhostapp.com/insert.php",
+      JSON.stringify({
+        email: user.email,
+        password: user.password
+      }),
+      { headers: headers }
+    )
+    .catch(this.handleErrors);
+  }
 
-    register(user:User){
-	console.log("registartion success");
+  handleErrors(error: Response) {
+    console.log(JSON.stringify(error.json()));
+    return Observable.throw(error);
+  }
 
-		this.http.get('http://asrui.000webhostapp.com/get.php')
-		.subscribe((response) => {
-			console.dir(response.json()); 
-		})
-	
-    }
-	login(user:User){
-        alert("login success: " + user.email);
-		console.log("login success");
-    };
-
+  log(){
+  return this.http.get("https://asrui.000webhostapp.com/get.php")
+	 	 	.catch(this.handleErrors);
+  }
 }

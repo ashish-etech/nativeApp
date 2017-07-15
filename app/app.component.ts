@@ -2,6 +2,8 @@ import { Component } from "@angular/core";
 import { User } from "./shared/user/user";
 import { Page } from "ui/page";
 import { UserService } from "./shared/user/user.service";
+import { Observable } from "rxjs/Rx";
+
 
 @Component({
   selector: "my-app",
@@ -25,17 +27,35 @@ export class AppComponent {
 		}
     };
     login(){
-		this.userService.login(this.user);
+		console.log('login function gets call')
+
+		this.userService.log()
+		.subscribe(
+			(res) => {	alert("you got data.", res);
+				this.toggle();
+			},
+			(err) => alert("Unfortunately we were unable to get data.")
+		)
+
     };
     signUp(){
+		this.userService.register(this.user)
+		.subscribe(
+			(res) => {	alert("Your account was successfully created.", res);
 
-        this.userService.register(this.user);
+				this.toggle();
+			},
+			(err) => alert("Unfortunately we were unable to create your account.",err)
+		)
     }
     toggle() {
         this.isLoggin=!this.isLoggin;
-    }
+    };
     constructor(private page:Page,private userService:UserService) {
         page.backgroundImage = "res://bg_inner";
         this.user=new User();
-    }
+    };
+	ngOnInit(){
+		this.login();
+		}
 }
