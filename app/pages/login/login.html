@@ -1,9 +1,15 @@
 <ActionBar class="action-bar"></ActionBar>
-
+<ScrollView>
 <StackLayout class="form">
     <Image src="res://logo_login" stretch="none" horizontalAlignment="center"></Image>
-    <TextField class="input input-border" hint="Email Address" [(ngModel)]="user.email" keyboardType="email" style.placeholderColor="lightgreen" autocorrect="false" autocapitalizationType="none"></TextField>
-    <TextField class="input input-border" hint="Password" secure="true" [(ngModel)]="user.password" style.placeholderColor="lightgreen"></TextField>
+	<TextField #email="ngModel" class="input input-border" hint="Email Address" [(ngModel)]="user.email" keyboardType="email" style.placeholderColor="lightgreen" autocorrect="false" autocapitalizationType="none" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required></TextField>
+		<Label class="label error" *ngIf="email.errors && (email.dirty || email.touched) && email.errors.required" text="-An email is required -"></Label>
+		<Label class="label error" *ngIf="email.errors && email.errors.pattern" text="- Invalid Email -"></Label>
+
+	<TextField #password="ngModel" class="input input-border" hint="Password" minlength="6" secure="true" [(ngModel)]="user.password" style.placeholderColor="lightgreen" required></TextField>
+		<Label class="label error" *ngIf="password.errors && (password.dirty || password.touched) && password.errors.required " text="-  Please enter password-"></Label>
+		<Label class="label error" *ngIf="password.errors && password.errors.minlength" text="-Must be at least 6 characters long-"></Label>
     <Button [text]="isLoggin ? 'Sign in' : 'Sign Up'" (tap)="submit()" ></Button>
-    <Button [text]="isLoggin ? 'Sign Up' : 'back to login'"  (tap)="toggle()" class="btn btn-active" ></Button>
+    <Button [text]="isLoggin ? 'Sign Up' : 'back to login'"  (tap)="toggle()" class="btn btn-active " ></Button>
  </StackLayout>
+ </ScrollView>
