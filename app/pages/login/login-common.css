@@ -4,24 +4,24 @@ StackLayout {
   padding-bottom: 10;
 }
 Image {
-  margin-top: 25;
-  margin-bottom: 25;
+  margin-top: 20;
+  margin-bottom: 20;
 }
 TextField{
-    margin-top: 10;
-    margin-bottom: 10;
+    margin-top: 5;
+    margin-bottom: 5;
     margin-left: 4;
     margin-right: 4;
     height: 58;
-    color: white;
 }
 Button{
-    margin-bottom: 10;
+    margin-top: 5;
+    margin-bottom: 5;
     height: 60;
-    color: white;
+    font-size: 26;
 }
-.submit{
-    background-color: green;
+.input{
+    background-color: #ccc;
 }
 .error{
 	font-size: 16;

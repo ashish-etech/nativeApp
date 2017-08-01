@@ -1,9 +1,13 @@
-import { Component } from "@angular/core";
+import { Component,OnInit } from "@angular/core";
 import { User } from "../../shared/user/user";
 import { Page } from "ui/page";
 import { UserService } from "../../shared/user/user.service";
 import { Observable } from "rxjs/Rx";
 import { Router } from "@angular/router";
+import {
+    FormBuilder,
+    Validators
+} from '@angular/forms';
 
 
 @Component({
@@ -13,24 +17,23 @@ import { Router } from "@angular/router";
   styleUrls: ["pages/login/login-common.css","pages/login/login.css"]
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit{
     user:User;
-    isLoggin=true;
 
     constructor(private page:Page,private userService:UserService, private router: Router) {
         page.backgroundImage = "res://bg_inner";
         this.user=new User();
     };
+    ngOnInit(){
+
+    }
 
     submit() {
 		if(!this.user.email || !this.user.password ){
 			alert("All fields required!")
-		}else{
-	        if(this.isLoggin){
-	            this.logIn();
-	        }else{
-	            this.signUp()
-	        }
+		}
+        else{
+	       this.getRegister()	        
 		}
     };
 
@@ -45,38 +48,33 @@ export class LoginComponent {
 
     };
 
-    signUp(){
+    getRegister(){
 		this.userService.register(this.user)
 		.subscribe(
 			(res) => {
-                console.log(res.text());
-                alert(res.text());
-                this.toggle();
-            },
-			(err) => {
+                console.log('registered',res.text());
+                //alert(res.text());
+                this.router.navigate(["/list"]);
+            },(err) => {
                 console.log("Unfortunately we were unable to create your account.");
                 alert(err.text());
             }
         )
     };
 
-    logIn(){
-        this.userService.login(this.user)
-        .subscribe(
-            (res) => {
-                this.router.navigate(["/list"]);
-                console.dir(res);
+    //logIn(){
+        //this.userService.login(this.user)
+        //.subscribe(
+        //   (res) => {
+          //      this.router.navigate(["/list"]);
+          //      console.dir(res);
 
-            },
-            (err) => {
-                console.log("Unfortunately we were unable to login.");
-                alert(err.text());
-            }
-        )
-    };
-
-    toggle() {
-        this.isLoggin=!this.isLoggin;
-    };
+           // },
+           // (err) => {
+            //    console.log("Unfortunately we were unable to login.");
+            //    alert(err.text());
+           // }
+        //)
+    //};
 
 }
